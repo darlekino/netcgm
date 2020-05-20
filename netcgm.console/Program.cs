@@ -13,12 +13,9 @@ namespace netcgm.console
             try
             {
                 var fileName = "D:\\projects\\job\\EXAMPLES\\jcgm-core-master\\jcgm-core-master\\samples\\allelm01.cgm";
-                foreach (var item in Enumerable.Range(0, 5000))
-                {
-                    var cgmFile = await CgmFile.ReadBinaryFormatAsync(fileName);
-                    Console.WriteLine(item);
-                    await Task.Delay(50);
-                }
+                var cgmFile = await CgmFile.ReadBinaryFormatAsync(fileName);
+                var polylines = cgmFile.Commands.Where(c => c is Polyline).ToList();
+                var disjointPolyline = cgmFile.Commands.Where(c => c is DisjointPolyline).ToList();
             }
             catch (Exception ex)
             {
